@@ -25,11 +25,11 @@ print("You currently have 5 lives")
 print("")
 
 
-def chosen_two_randos(exclude=[]):
+def chosen_two_randos(exclude):  #picks out a random influencer from list
     candidates = [influencer for influencer in influencers if influencer not in exclude]
     return random.sample(candidates, 2)
 
-def chosen_one_rando(exclude=[]):
+def chosen_one_rando(exclude=[]):  #picks out another random influencer from list
     candidates = [influencer for influencer in influencers if influencer not in exclude]
     return random.sample(candidates, 1)
 
@@ -43,7 +43,7 @@ def print_influencer(result1):
     following = result1['followers']
 
 
-def main():
+def main():   #main game function, contains one whole round
     lives = 3
     used_influencers = []   #defines list of used influencers
     chosen_winner = False
@@ -53,7 +53,7 @@ def main():
         if not chosen_winner:
             influencer_1, influencer_2 = chosen_two_randos(used_influencers)
         else:
-            print(f"THiS IS RUNNING: {influencer_1["name"]}")
+            print(f"THIS IS RUNNING: {influencer_1["name"]}")
             influencer_2 = chosen_one_rando(used_influencers)[0]
             chosen_winner = False
 
@@ -88,13 +88,14 @@ def main():
             print(f"You have {lives} lives remaining.")
             used_influencers.extend([influencer_1, influencer_2])  # Mark both influencers as used
         print("")
-        if lives == 0:
+        if lives == 0:    #play again function
             print("Game over, you lose.")
-            play_again = input("Would you like to play again? (yes/no): ").lower()
+            play_again = input("Would you like to play again? (yes/no):").lower()
             if play_again == "yes":
-                main()
+                main()   #runs main function again
             else:
                 print("Thank you for playing!")
+                break   #cancels function and ends game
 
 
 if __name__ == "__main__":
